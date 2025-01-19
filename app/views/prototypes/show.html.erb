@@ -56,13 +56,12 @@
         <ul class="comments_lists">
           <% @comments.each do |comment| %>
             <li class="comments_list">
-              <strong><%= comment.user.name %>:</strong>
               <%= comment.text %> <!-- コメントのテキスト表示 -->
               <%= link_to comment.user.name, user_path(comment.user), class: "comment_user" %> <!-- コメント投稿者のリンク -->
             </li>
           <% end %>
         </ul>
-        <%= link_to "戻る", request.referer || root_path, class: "btn btn-back" %>
+
       </div>
     </div>
   </div>
