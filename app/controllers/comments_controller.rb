@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
     @prototype = Prototype.find(params[:prototype_id])
     @comment = @prototype.comments.build(comment_params)
     @comment.user = current_user
+    @comments = @prototype.comments.distinct
 
     if @comment.save
       redirect_to prototype_path(@prototype), notice: 'コメントが正常に投稿されました。'
