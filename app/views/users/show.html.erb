@@ -1,9 +1,12 @@
 <div class="main">
   <div class="inner">
     <div class="user__wrapper">
+      <!-- ユーザー名を表示 -->
       <h2 class="page-heading">
-        <%= "username"%>
+        <%= "#{@user.name}さん" %> <!-- ユーザー名を表示 -->
       </h2>
+      
+      <!-- ユーザーの詳細情報テーブル -->
       <table class="table">
         <tbody>
           <tr>
@@ -16,7 +19,7 @@
           </tr>
           <tr>
             <th class="table__col1">所属</th>
-            <td class="table__col2"><%= @user.occupation %></td>
+            <td class="table__col2"><%= @user.occupation %></td> <!-- occupation をそのまま使用 -->
           </tr>
           <tr>
             <th class="table__col1">役職</th>
@@ -24,12 +27,15 @@
           </tr>
         </tbody>
       </table>
+      
+      <!-- ユーザーが投稿したプロトタイプのタイトル -->
       <h2 class="page-heading">
-        <%= "ユーザー名さんのプロトタイプ"%>
+        <%= "#{@user.name}さんのプロトタイプ" %>
       </h2>
+      
+      <!-- ユーザーが投稿したプロトタイプ一覧 -->
       <div class="user__card">
-        <%# 部分テンプレートでそのユーザーが投稿したプロトタイプ投稿一覧を表示する %>
-        <%#= render partial: "form", locals: { user: @user } %>
+        <%# 部分テンプレートでそのユーザーが投稿したプロトタイプを表示する %>
         <%= render partial: "prototypes/prototype", collection: @prototypes %>
       </div>
     </div>

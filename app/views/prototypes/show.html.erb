@@ -9,7 +9,6 @@
       <!-- プロトタイプの投稿者情報 -->
       <p class="prototype__user-info">
         <%= link_to @prototype.user.name, user_path(@prototype.user), class: 'prototype__user' %>
-
       </p>
 
       <!-- 投稿者とログインユーザーが一致する場合に編集・削除リンクを表示 -->
@@ -19,10 +18,11 @@
           <%= link_to "削除する", prototype_path(@prototype), data: { turbo_method: :delete } , class: 'prototype__btn' %> <!-- 削除リンク -->
         </div>
       <% end %>
-      <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
+
       <div class="prototype__image">
         <%= image_tag @prototype.image %>
       </div>
+      
       <div class="prototype__body">
         <div class="prototype__detail">
           <p class="detail__title">キャッチコピー</p>
@@ -37,53 +37,33 @@
           </p>
         </div>
       </div>
+
+      <!-- コメント投稿フォーム (ログインユーザーのみ表示) -->
       <div class="prototype__comments">
-        <%# ログインしているユーザーには以下のコメント投稿フォームを表示する %>
         <% if user_signed_in? %>
-          <%= form_with model: [@prototype,@comment],local: true do |f| %>
+          <%= form_with model: [@prototype, @comment], local: true do |f| %>
             <div class="field">
               <%= f.label :text, "コメント" %><br />
-              <%= f.text_field :text, id:"comment_text" %>
+              <%= f.text_area :text, id: "comment_text", rows: 4 %> <!-- 長文を入力しやすいようにテキストエリアを使用 -->
             </div>
             <div class="actions">
-  
-              <%= f.submit "送信する", class: :form__btn  %>
+              <%= f.submit "送信する", class: "form__btn" %>
             </div>
           <% end %>
-        <% end %> 
-        
-        <%# // ログインしているユーザーには上記を表示する %>
+        <% end %>
+
+        <!-- コメント一覧 -->
         <ul class="comments_lists">
-          <%# 投稿に紐づくコメントを一覧する処理を記述する %>
           <% @comments.each do |comment| %>
             <li class="comments_list">
-              <%= comment.text %>
-              <%= link_to comment.user.name , user_path(comment.user.id), class: :comment_user %>
+              <strong><%= comment.user.name %>:</strong>
+              <%= comment.text %> <!-- コメントのテキスト表示 -->
+              <%= link_to comment.user.name, user_path(comment.user), class: "comment_user" %> <!-- コメント投稿者のリンク -->
             </li>
           <% end %>
-          <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
-          <!-- 投稿の詳細表示 -->
-          <h2>コメント一覧</h2>
-          <%= @comments.each do |comment| %>
-          <div class="comment">
-         <p>
-         <strong><%= comment.user.name %>:</strong> 
-         <%= comment.text %> 
-         </p>
-      </div>
-      <!-- 仮置きのリンク -->
-        <a href="<%= root_path %>">戻る</a>
         </ul>
+        <%= link_to "戻る", request.referer || root_path, class: "btn btn-back" %>
       </div>
     </div>
   </div>
 </main>
-        </ul>
-      </div>
-    </div>
-  </div>
-</main>
-
-
-
-<% end %>

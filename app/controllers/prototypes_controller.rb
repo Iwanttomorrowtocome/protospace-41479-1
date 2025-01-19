@@ -26,7 +26,7 @@ class PrototypesController < ApplicationController
       # 保存に成功した場合
       if @prototype.save
         # 成功したらホームページにリダイレクト
-        redirect_to root_path, notice: 'Prototype was successfully created.'
+        redirect_to root_path, notice: '新規登録が完了しました。'
       else
         # 保存に失敗した場合、新規作成フォームを再表示
         render :new
